@@ -1,0 +1,19 @@
+---
+- name: "Removendo o usuario anonymous localhost"
+  mysql_user: name='' host=localhost state=absent
+  
+- name: "Removendo o usuario anonymous do hostname_fqdn"
+  mysql_user: name='' host={{ hostname_fqdn }} state=absent
+
+- name: "Update mysql user default host ansible_hostname"
+  mysql_user: name='' host={{ ansible_hostname }} password={{ mysql_password }} 
+
+- name: "Update mysql root password for all root accounts"
+  ignore_errors: yes
+  mysql_user: name={{ mysql_user }} host={{ item }} password={{ mysql_password }}
+  with_items:
+   - "{{ hostname_fqdn }}"
+   - "{{ ansible_hostname }}"
+   - 127.0.0.1
+   - ::1
+   - localhost 

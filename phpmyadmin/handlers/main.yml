@@ -1,0 +1,17 @@
+---
+# handlers file for phpmyadmin
+- name: "Restart MariaDB"
+  service: name=mariadb state=restarted
+
+- name: "Restart httpd"
+  service: name=httpd state=restarted
+
+- name: "Restart apache2"
+  service: name=apache2 state=restarted
+
+- name: "Restart Mysqld"
+  service: name=mysqld state=restarted
+
+- name: "Restart Mysql"
+  service: name=mysql state=restarted
+

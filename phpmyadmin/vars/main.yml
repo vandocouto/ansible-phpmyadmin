@@ -1,0 +1,9 @@
+---
+# vars file for phpmyadmin
+ntp_timezone: Sao_Paulo
+# MySQL User root
+mysql_user: root
+# MySQL Password - para gerar a senha utilize o pwgen
+mysql_password: senha
+# FQDN do servidor MySQL
+hostname_fqdn: debian

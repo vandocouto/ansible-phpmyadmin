@@ -1,0 +1,31 @@
+---
+- name: "Instalacao do phpmyadmin - Debian"
+  apt: name={{item}} state=present
+  with_items:
+   - apache2
+   - phpmyadmin
+   - mysql-server
+   - mysql-client
+   - python-mysqldb
+
+- name: "Adicionando o phpmyadmin no apache.conf"
+  blockinfile:
+    dest: /etc/apache2/apache2.conf
+    backup: yes
+    content: |
+      Include /etc/phpmyadmin/apache.conf
+
+- name: "Iniciando o Mysql - Debian"
+  service:
+   name: mysql
+   state: running
+   enabled: yes
+  notify: Restart Mysql
+
+- name: "Iniciando o Apache2 - Debian"
+  service:
+   name: apache2
+   state: running
+   enabled: yes
+  notify: Restart apache2
+

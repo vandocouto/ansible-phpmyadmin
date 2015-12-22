@@ -1,0 +1,46 @@
+---
+# Run the equivalent of "apt-get update" as a separate step
+- name: "Update Redhat"
+  yum: name=* state=latest update_cache=yes
+
+- name: "epel-release - CentOS"
+  yum : name=epel-release state=latest
+
+- name: "Pacotes - YUM"
+  yum: name={{item}} state=latest
+  with_items:
+   - httpd
+   - mariadb-server
+   - mariadb-devel
+   - mariadb
+   - php
+   - php-gd
+   - php-mysql
+   - phpMyAdmin.noarch
+   - ntp
+   - MySQL-python
+
+- name: "Iniciando o MariaDB - CentOS"
+  service: 
+   name: mariadb
+   state: running
+   enabled: yes 
+  notify: Restart MariaDB
+
+- name: "Ajustando o horario Ntp"
+  file:
+    src: "/usr/share/zoneinfo/America/{{ ntp_timezone }}"
+    dest: /etc/localtime
+    state: link
+    force: yes
+
+- name: "Ajustando o arquivo de configuracao do phpMyAdmin"
+  template: src=phpMyAdmin.conf-temp dest=/etc/httpd/conf.d/phpMyAdmin.conf
+
+- name: "Iniciando o Httpd - CentOS"
+  service:
+   name: httpd
+   state: running
+   enabled: yes
+  notify: Restart httpd
+

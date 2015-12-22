@@ -1,0 +1,4 @@
+- hosts: phpmyadmin
+  roles: 
+  - yaegashi.blockinfile
+  - phpmyadmin
