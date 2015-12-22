@@ -1,5 +1,4 @@
 ---
-# Run the equivalent of "apt-get update" as a separate step
 - name: "Update Redhat"
   yum: name=* state=latest update_cache=yes
 

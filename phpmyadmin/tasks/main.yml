@@ -1,9 +1,11 @@
 ---
 # tasks file for phpmyadmin
 - include: centos.yml
-  when: ansible_os_family == 'RedHat'
+  when: ansible_os_family == "RedHat"
+  tags: centos
 - include: debian.yml
   when: ansible_os_family == "Debian"
+  tags: debian
 - include: mysql.yml
   tags: mysql
 
